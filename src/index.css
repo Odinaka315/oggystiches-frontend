@@ -1,0 +1,246 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-card-bg: var(--card-bg);
+  --color-surface: var(--surface);
+  --color-accent: var(--accent);
+  --color-muted: var(--muted);
+  --color-border-col: var(--border-col);
+}
+
+:root {
+  --bg: #faf7f2;
+  --fg: #1a1714;
+  --card-bg: #f0ebe1;
+  --surface: #e8e1d6;
+  --accent: #c9a96e;
+  --accent-10: rgba(201, 169, 110, 0.1);
+  --accent-20: rgba(201, 169, 110, 0.2);
+  --accent-40: rgba(201, 169, 110, 0.4);
+  --muted: #8a8178;
+  --border-col: rgba(26, 23, 20, 0.1);
+  --fluid-a: rgba(201, 169, 110, 0.12);
+  --fluid-b: #faf7f2;
+  --fluid-c: #ede6db;
+  --shadow-soft: 0 20px 60px rgba(26, 23, 20, 0.12);
+}
+
+.dark {
+  --bg: #0d0c0a;
+  --fg: #f5f0e8;
+  --card-bg: #1a1714;
+  --surface: #252018;
+  --accent: #d4af37;
+  --accent-10: rgba(212, 175, 55, 0.1);
+  --accent-20: rgba(212, 175, 55, 0.2);
+  --accent-30: rgba(212, 175, 55, 0.3);
+  --accent-40: rgba(212, 175, 55, 0.4);
+  --muted: #9a9088;
+  --border-col: rgba(245, 240, 232, 0.08);
+  --fluid-a: rgba(212, 175, 55, 0.07);
+  --fluid-b: #0d0c0a;
+  --fluid-c: #1a1714;
+  --shadow-soft: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--fg);
+  transition:
+    background 0.55s ease,
+    color 0.4s ease;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+* {
+  scrollbar-width: none;
+}
+
+/* ── Keyframes ── */
+@keyframes fluidShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes floatUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes needleDraw {
+  from {
+    stroke-dashoffset: var(--dash, 200);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes rippleExpand {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(300);
+    opacity: 0;
+  }
+}
+
+@keyframes marqueePlay {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+}
+
+/* ── Scroll-reveal utilities ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition:
+    opacity 0.95s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition:
+    opacity 0.95s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition:
+    opacity 0.95s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Canvas collection grid ── */
+.canvas-grid {
+  display: flex;
+  overflow-x: auto;
+  gap: 16px;
+  padding-bottom: 1.5rem;
+}
+
+.canvas-card {
+  flex-shrink: 0;
+  min-width: clamp(220px, 62vw, 280px);
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .canvas-grid {
+    display: block;
+    columns: 3;
+    column-gap: 20px;
+    overflow: visible;
+    padding-bottom: 0;
+  }
+  .canvas-card {
+    break-inside: avoid;
+    margin-bottom: 20px;
+    min-width: auto;
+    width: 100%;
+  }
+}
+
+/* ── Timeline ── */
+.timeline-item {
+  opacity: 0;
+  transform: translateX(-32px);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.timeline-item.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Marquee ── */
+.marquee-track {
+  display: flex;
+  gap: 20px;
+  animation: marqueePlay 32s linear infinite;
+  will-change: transform;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ── Newsletter split layout ── */
+@media (min-width: 768px) {
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+}

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <!-- Deep luxury dark background (matches your dark mode bg) -->
+  <rect width="120" height="120" rx="28" fill="#0D0C0A" />
+  
+  <!-- Accent Thread Loop (Subtle 'o' shape) -->
+  <path 
+    d="M60 85 C35 85 35 35 60 35 C85 35 85 85 60 85 Z" 
+    stroke="#D4AF37" 
+    stroke-width="8" 
+    stroke-linecap="round" 
+    fill="none" 
+  />
+  
+  <!-- Needle piercing the thread -->
+  <line 
+    x1="25" y1="95" 
+    x2="95" y2="25" 
+    stroke="#F5F0E8" 
+    stroke-width="6" 
+    stroke-linecap="round" 
+  />
+  
+  <!-- Needle Eye detail -->
+  <line 
+    x1="82" y1="38" 
+    x2="88" y2="32" 
+    stroke="#0D0C0A" 
+    stroke-width="3" 
+    stroke-linecap="round" 
+  />
+</svg>
