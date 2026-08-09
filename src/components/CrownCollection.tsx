@@ -1,5 +1,6 @@
 import { useRef, useEffect, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
+import api from "../services/api";
 
 // Types matching your FastAPI ProductOut schema
 interface ProductImageOut {
@@ -60,15 +61,14 @@ export default function CrownCollection() {
   const headerRef = useRef<HTMLDivElement>(null);
 
   // Fetch bespoke products from the database
-  const { data: dbProducts } = useQuery({
+  const { data: dbProducts, isError } = useQuery<ProductOut[]>({
     queryKey: ["products", { is_bespoke: true }],
     queryFn: async () => {
       // Adjust the base URL if your FastAPI backend is hosted elsewhere
-      const res = await fetch(
-        "http://localhost:8000/products/storefront?is_bespoke=true",
+      const res = await api.get<ProductOut[]>(
+        "/products/storefront?is_bespoke=true",
       );
-      if (!res.ok) throw new Error("Failed to fetch products");
-      return res.json() as Promise<ProductOut[]>;
+      return res.data;
     },
   });
 

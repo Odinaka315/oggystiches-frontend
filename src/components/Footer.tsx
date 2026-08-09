@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { PhoneIcon } from "lucide-react";
+import api from "../services/api";
 
 const links = {
   Atelier: [
@@ -86,19 +87,11 @@ export default function Footer() {
   }, []);
 
   const mutation = useMutation({
-    mutationFn: async (newContactMessage: typeof formData) => {
-      const response = await fetch("http://localhost:8000/contact-messages/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newContactMessage),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to send message");
-      }
-      return response.json();
+    // Type the payload to match your state
+    mutationFn: async (payload: typeof formData) => {
+      // Axios automatically sets 'application/json' when you pass a plain object
+      const response = await api.post("/contact-messages/", payload);
+      return response.data;
     },
     onSuccess: () => {
       setSubmitted(true);
@@ -125,6 +118,8 @@ export default function Footer() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Pass the state object directly as a JSON payload
     mutation.mutate(formData);
   };
 

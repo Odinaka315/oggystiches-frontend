@@ -1,4 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
+import { Routes, Route } from "react-router-dom";
+
+// Storefront Components
 import LoadingScreen from "./components/LoadingScreen";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -10,15 +13,21 @@ import AsWornBy from "./components/AsWornBy";
 import Footer from "./components/Footer";
 import Manifesto from "./components/Manifesto";
 
+// Admin Components (Ensure you create these files next)
+import Login from "./components/admin/Login";
+import ProtectedRoute from "./components/admin/ProtectedRoute";
+import AdminLayout from "./components/admin/AdminLayout";
+import Dashboard from "./components/admin/Dashboard";
+import Products from "./components/admin/Products";
+import ProductForm from "./components/admin/ProductForm";
+import Inquiries from "./components/admin/Inquiries";
+
 export default function App() {
-  // 1. Explicitly type as <boolean> so TypeScript knows 'd' is a boolean
   const [dark, setDark] = useState<boolean>(() => {
     try {
       const savedTheme = localStorage.getItem("theme");
-      // 2. Safely parse the JSON
-      return savedTheme !== null ? JSON.parse(savedTheme) : false; // Default to false (light mode)
+      return savedTheme !== null ? JSON.parse(savedTheme) : false;
     } catch (error) {
-      // 3. If there's a JSON error (like the old "dark" string), clear it and default to false
       localStorage.removeItem("theme");
       return false;
     }
@@ -39,17 +48,37 @@ export default function App() {
 
   const handleToggleTheme = useCallback((x: number, y: number) => {
     setRipple({ x, y, id: Date.now() });
-
-    // Because of useState<boolean>, TypeScript now knows 'd' is a boolean here!
     setTimeout(() => setDark((d) => !d), 220);
     setTimeout(() => setRipple(null), 900);
   }, []);
 
+  // 1. Group the entire storefront into a single variable/component
+  // to keep the router block below clean.
+  const Storefront = (
+    <div
+      className={`transition-opacity duration-700 ease-in-out delay-100 ${
+        loaded ? "opacity-100" : "opacity-0"
+      }`}
+    >
+      <Navbar dark={dark} onToggleTheme={handleToggleTheme} />
+      <main>
+        <Hero />
+        <Manifesto />
+        <DualIdentity />
+        <CrownCollection />
+        <CanvasCollection />
+        <BespokeProcess />
+        <AsWornBy />
+        <Footer />
+      </main>
+    </div>
+  );
+
   return (
     <>
+      {/* Keep the global loading screen and ripple at the top level */}
       {!loaded && <LoadingScreen onComplete={() => setLoaded(true)} />}
 
-      {/* Theme-flip ripple overlay */}
       {ripple && (
         <div
           key={ripple.id}
@@ -69,23 +98,62 @@ export default function App() {
         </div>
       )}
 
-      <div
-        className={`transition-opacity duration-700 ease-in-out delay-100 ${
-          loaded ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        <Navbar dark={dark} onToggleTheme={handleToggleTheme} />
-        <main>
-          <Hero />
-          <Manifesto />
-          <DualIdentity />
-          <CrownCollection />
-          <CanvasCollection />
-          <BespokeProcess />
-          <AsWornBy />
-          <Footer />
-        </main>
-      </div>
+      {/* 2. Define the Routing Architecture */}
+      <Routes>
+        {/* Public Storefront */}
+        <Route path="/" element={Storefront} />
+
+        {/* Public Admin Login */}
+        <Route path="/admin/login" element={<Login />} />
+
+        {/* Protected Admin Shell */}
+        {/* Protected Admin Shell (Dashboard) */}
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <Dashboard />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Protected Admin Shell (Products) */}
+        <Route
+          path="/admin/products"
+          element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <Products />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/products/new"
+          element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <ProductForm />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Protected Admin Shell (Inquiries) */}
+        <Route
+          path="/admin/inquiries"
+          element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <Inquiries />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
     </>
   );
 }
