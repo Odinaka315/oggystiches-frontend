@@ -131,7 +131,7 @@ export default function CanvasCollection() {
       </div>
 
       {/* Grid: 4 columns (desktop) / 2 columns (tablet) / 1 column (mobile) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {displayData.map((dress) => (
           <div key={dress.id} className="group">
             <div className="relative w-full pb-[130%] overflow-hidden bg-surface shadow-[var(--shadow-soft)]">
