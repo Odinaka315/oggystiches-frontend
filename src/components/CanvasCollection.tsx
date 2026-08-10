@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import api from "../services/api";
+
 // Types matching your FastAPI ProductOut schema
 interface ProductImageOut {
   id: number;
@@ -129,10 +130,10 @@ export default function CanvasCollection() {
         </button>
       </div>
 
-      {/* Grid: columns (desktop) / horizontal scroll (mobile) */}
-      <div className="canvas-grid">
+      {/* Grid: 4 columns (desktop) / 2 columns (tablet) / 1 column (mobile) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {displayData.map((dress) => (
-          <div key={dress.id} className="canvas-card group">
+          <div key={dress.id} className="group">
             <div className="relative w-full pb-[130%] overflow-hidden bg-surface shadow-[var(--shadow-soft)]">
               <img
                 src={dress.img}
