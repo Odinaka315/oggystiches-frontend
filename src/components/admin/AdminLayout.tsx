@@ -9,6 +9,7 @@ import {
   LogOut,
   Menu,
   X,
+  KeyRound, // <-- Imported new icon
 } from "lucide-react";
 import api from "../../services/api";
 
@@ -27,6 +28,7 @@ const navItems = [
   { label: "Dashboard", path: "/admin", icon: LayoutDashboard },
   { label: "Products", path: "/admin/products", icon: ShoppingBag },
   { label: "Inquiries", path: "/admin/inquiries", icon: Inbox },
+  { label: "Security", path: "/admin/security", icon: KeyRound }, // <-- Added new route
 ];
 
 export default function AdminLayout({ children }: AdminLayoutProps) {

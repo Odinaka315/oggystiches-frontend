@@ -21,6 +21,7 @@ import Dashboard from "./components/admin/Dashboard";
 import Products from "./components/admin/Products";
 import ProductForm from "./components/admin/ProductForm";
 import Inquiries from "./components/admin/Inquiries";
+import Security from "./components/admin/Security";
 
 export default function App() {
   const [dark, setDark] = useState<boolean>(() => {
@@ -149,6 +150,16 @@ export default function App() {
             <ProtectedRoute>
               <AdminLayout>
                 <Inquiries />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/security"
+          element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <Security />
               </AdminLayout>
             </ProtectedRoute>
           }
