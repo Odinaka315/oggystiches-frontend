@@ -125,8 +125,9 @@ export default function CanvasCollection() {
             your story.
           </h2>
         </div>
+
         <button className="font-sans text-[0.68rem] tracking-[0.2em] uppercase bg-transparent border border-border-col text-fg px-[22px] py-[10px] cursor-pointer transition-colors duration-250 ease-in-out self-end hover:bg-accent hover:border-accent hover:text-bg">
-          Commission Yours
+          <a href="/#Contact">Commission Yours</a>
         </button>
       </div>
 
