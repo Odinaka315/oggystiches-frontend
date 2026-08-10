@@ -57,7 +57,8 @@ export default function Hero() {
 
       {/* Editorial photo — faded */}
       <div
-        className="absolute inset-0 bg-cover bg-[center_15%] opacity-20 dark:opacity-40 mix-blend-multiply dark:mix-blend-luminosity"
+        // 👇 CHANGED: Added responsive background positioning here
+        className="absolute inset-0 bg-cover bg-[75%_15%] md:bg-[center_15%] opacity-20 dark:opacity-40 mix-blend-multiply dark:mix-blend-luminosity"
         style={{
           backgroundImage:
             "url(https://images.unsplash.com/photo-1547547700-b3954043b1b8?w=1400&h=1000&fit=crop&auto=format)",
