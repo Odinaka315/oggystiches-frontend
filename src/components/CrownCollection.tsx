@@ -61,7 +61,7 @@ export default function CrownCollection() {
   const headerRef = useRef<HTMLDivElement>(null);
 
   // Fetch bespoke products from the database
-  const { data: dbProducts, isError } = useQuery<ProductOut[]>({
+  const { data: dbProducts} = useQuery<ProductOut[]>({
     queryKey: ["products", { is_bespoke: true }],
     queryFn: async () => {
       // Adjust the base URL if your FastAPI backend is hosted elsewhere
