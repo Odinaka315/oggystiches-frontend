@@ -19,7 +19,7 @@ export default function Security() {
       old_password: string;
       new_password: string;
     }) => {
-      const response = await api.patch("/me/change-password", payload);
+      const response = await api.patch("/auth/me/change-password", payload);
       return response.data;
     },
     onSuccess: (data) => {
