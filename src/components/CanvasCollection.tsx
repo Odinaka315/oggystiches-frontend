@@ -165,9 +165,7 @@ export default function CanvasCollection() {
               <h3 className="font-display italic text-[1.05rem] font-semibold text-fg mb-[0.3rem]">
                 {dress.name}
               </h3>
-              <p className="font-sans text-[0.88rem] text-accent">
-                {dress.price}
-              </p>
+              <p className="font-sans text-[0.88rem] text-accent">{"  "} </p>
             </div>
           </div>
         ))}

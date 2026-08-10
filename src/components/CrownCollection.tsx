@@ -61,7 +61,7 @@ export default function CrownCollection() {
   const headerRef = useRef<HTMLDivElement>(null);
 
   // Fetch bespoke products from the database
-  const { data: dbProducts} = useQuery<ProductOut[]>({
+  const { data: dbProducts } = useQuery<ProductOut[]>({
     queryKey: ["products", { is_bespoke: true }],
     queryFn: async () => {
       // Adjust the base URL if your FastAPI backend is hosted elsewhere
@@ -213,13 +213,11 @@ export default function CrownCollection() {
                 <h3 className="font-display italic text-[1.1rem] font-semibold text-fg mb-1">
                   {item.name}
                 </h3>
-                <p className="font-sans text-[0.88rem] text-accent font-medium">
-                  {item.price}
-                </p>
+                <p className="font-sans text-[0.88rem] text-accent font-medium"></p>
               </div>
-              <button className="font-sans text-[0.65rem] tracking-[0.14em] uppercase bg-transparent border border-border-col text-fg px-4 py-2 cursor-pointer shrink-0 transition-colors duration-200 ease-in-out hover:bg-accent hover:border-accent hover:text-bg">
+              {/* <button className="font-sans text-[0.65rem] tracking-[0.14em] uppercase bg-transparent border border-border-col text-fg px-4 py-2 cursor-pointer shrink-0 transition-colors duration-200 ease-in-out hover:bg-accent hover:border-accent hover:text-bg">
                 Add
-              </button>
+              </button> */}
             </div>
           </div>
         ))}
