@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useAuth } from "../../context/AuthContext";
+import { useServerWarmup } from "../../context/ServerWarmupContext";
 import api from "../../services/api";
 
 interface TokenResponse {
@@ -15,6 +16,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const { login } = useAuth();
+  const { isWaking } = useServerWarmup();
 
   const loginMutation = useMutation({
     mutationFn: async () => {
@@ -97,7 +99,11 @@ export default function Login() {
             disabled={loginMutation.isPending}
             className="mt-4 bg-transparent border border-accent font-sans text-[0.68rem] tracking-[0.22em] uppercase text-accent py-4 transition-all duration-300 hover:bg-accent hover:text-bg disabled:opacity-50 disabled:cursor-wait"
           >
-            {loginMutation.isPending ? "Authenticating..." : "Sign In"}
+            {loginMutation.isPending
+              ? isWaking
+                ? "Waking server up (~45s)..."
+                : "Authenticating..."
+              : "Sign In"}
           </button>
         </form>
       </div>

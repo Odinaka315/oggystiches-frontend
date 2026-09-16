@@ -20,39 +20,33 @@ interface ProductOut {
 const fallbackDresses = [
   {
     id: 1,
-    name: "Scarlet Sovereignty",
+    name: "Sunflower Rose",
     price: "₦145,000",
-    img: "https://images.unsplash.com/photo-1568252542512-9fe8fe9c87bb?w=600&h=820&fit=crop&auto=format",
+    img: "https://res.cloudinary.com/dwlh1jdu4/image/upload/v1786396004/oggystitches/products/krukpneeai02npwrisus.jpg",
   },
   {
     id: 2,
-    name: "Obsidian Reverie",
+    name: "Come see me",
     price: "₦168,000",
-    img: "https://images.unsplash.com/photo-1568251188392-ae32f898cb3b?w=600&h=700&fit=crop&auto=format",
+    img: "https://res.cloudinary.com/dwlh1jdu4/image/upload/v1786396365/oggystitches/products/votdmesr6i6sl3dy3j8q.jpg",
   },
   {
     id: 3,
-    name: "Ivory Ascension",
+    name: "Diamond View",
     price: "₦132,000",
-    img: "https://images.unsplash.com/photo-1610312774212-6bde94e8c0b0?w=600&h=860&fit=crop&auto=format",
+    img: "https://res.cloudinary.com/dwlh1jdu4/image/upload/v1786396619/oggystitches/products/wcaq9zldiu5z5947wqlx.jpg",
   },
   {
     id: 4,
-    name: "Sand & Silk",
+    name: "The Gold Standard",
     price: "₦158,000",
-    img: "https://images.unsplash.com/photo-1551621955-fa07d4b1376b?w=600&h=900&fit=crop&auto=format",
+    img: "https://res.cloudinary.com/dwlh1jdu4/image/upload/v1786396712/oggystitches/products/zutdq2tlil9a643tdylg.jpg",
   },
   {
     id: 5,
-    name: "Midnight Sonata",
+    name: "Superpower",
     price: "₦175,000",
-    img: "https://images.unsplash.com/photo-1596015301017-471ad3599a30?w=600&h=820&fit=crop&auto=format",
-  },
-  {
-    id: 6,
-    name: "Graphite Grace",
-    price: "₦138,000",
-    img: "https://images.unsplash.com/photo-1626987563563-951cdde62bd3?w=600&h=780&fit=crop&auto=format",
+    img: "https://res.cloudinary.com/dwlh1jdu4/image/upload/v1786396931/oggystitches/products/yevqurl5wq4odkxjs0wf.jpg",
   },
 ];
 

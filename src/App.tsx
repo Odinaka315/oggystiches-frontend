@@ -12,6 +12,7 @@ import BespokeProcess from "./components/BespokeProcess";
 import AsWornBy from "./components/AsWornBy";
 import Footer from "./components/Footer";
 import Manifesto from "./components/Manifesto";
+import ServerWarmupBanner from "./components/ServerWarmupBanner";
 
 // Admin Components (Ensure you create these files next)
 import Login from "./components/admin/Login";
@@ -98,6 +99,9 @@ export default function App() {
           />
         </div>
       )}
+
+      {/* Global Server Warmup Banner for Render Free Tier */}
+      <ServerWarmupBanner />
 
       {/* 2. Define the Routing Architecture */}
       <Routes>
