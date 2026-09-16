@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { PhoneIcon } from "lucide-react";
 import api from "../services/api";
+import { useServerWarmup } from "../context/ServerWarmupContext";
 
 const links = {
   Atelier: [
@@ -123,6 +124,8 @@ export default function Footer() {
     mutation.mutate(formData);
   };
 
+  const { isWaking } = useServerWarmup();
+
   return (
     <section id="Contact">
       <footer className="bg-fg text-bg overflow-hidden">
@@ -212,7 +215,11 @@ export default function Footer() {
                 disabled={mutation.isPending}
                 className="self-center bg-transparent border border-accent font-sans text-[0.68rem] tracking-[0.22em] uppercase text-accent cursor-pointer py-4 px-10 transition-all duration-300 hover:bg-accent hover:text-fg disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {mutation.isPending ? "Sending..." : "Send Message"}
+                {mutation.isPending
+                  ? isWaking
+                    ? "Waking server (~45s)..."
+                    : "Sending..."
+                  : "Send Message"}
               </button>
 
               {mutation.isError && (
