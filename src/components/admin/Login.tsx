@@ -1,5 +1,6 @@
 // components/admin/Login.tsx
 import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useAuth } from "../../context/AuthContext";
@@ -14,6 +15,7 @@ interface TokenResponse {
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
   const { isWaking } = useServerWarmup();
@@ -78,15 +80,26 @@ export default function Login() {
             disabled={loginMutation.isPending}
             className="bg-transparent border-b border-border-col focus:border-accent outline-none font-sans text-sm text-fg py-3 transition-colors duration-300 disabled:opacity-50"
           />
-          <input
-            type="password"
-            required
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            disabled={loginMutation.isPending}
-            className="bg-transparent border-b border-border-col focus:border-accent outline-none font-sans text-sm text-fg py-3 transition-colors duration-300 disabled:opacity-50"
-          />
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              required
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              disabled={loginMutation.isPending}
+              className="w-full bg-transparent border-b border-border-col focus:border-accent outline-none font-sans text-sm text-fg py-3 pr-10 transition-colors duration-300 disabled:opacity-50"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute right-0 top-1/2 -translate-y-1/2 text-muted hover:text-fg transition-colors duration-200"
+              tabIndex={-1}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+            >
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
+          </div>
 
           {loginMutation.isError && (
             <p className="font-sans text-xs text-red-400 text-center mt-2">

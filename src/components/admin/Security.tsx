@@ -1,7 +1,7 @@
 // components/admin/Security.tsx
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { ShieldCheck, AlertCircle, CheckCircle2 } from "lucide-react";
+import { ShieldCheck, AlertCircle, CheckCircle2, Eye, EyeOff } from "lucide-react";
 import api from "../../services/api";
 
 export default function Security() {
@@ -13,6 +13,11 @@ export default function Security() {
 
   const [validationError, setValidationError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [showPasswords, setShowPasswords] = useState({
+    old_password: false,
+    new_password: false,
+    confirm_password: false,
+  });
 
   const mutation = useMutation({
     mutationFn: async (payload: {
@@ -108,42 +113,75 @@ export default function Security() {
             <label className="block font-sans text-xs tracking-[0.15em] uppercase text-muted mb-2">
               Current Password
             </label>
-            <input
-              type="password"
-              name="old_password"
-              value={formData.old_password}
-              onChange={handleChange}
-              placeholder="Enter your current password"
-              className="w-full bg-transparent border-b border-border-col focus:border-accent outline-none font-sans text-sm text-fg py-3 transition-colors"
-            />
+            <div className="relative">
+              <input
+                type={showPasswords.old_password ? "text" : "password"}
+                name="old_password"
+                value={formData.old_password}
+                onChange={handleChange}
+                placeholder="Enter your current password"
+                className="w-full bg-transparent border-b border-border-col focus:border-accent outline-none font-sans text-sm text-fg py-3 pr-10 transition-colors"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPasswords((prev) => ({ ...prev, old_password: !prev.old_password }))}
+                className="absolute right-0 top-1/2 -translate-y-1/2 text-muted hover:text-fg transition-colors duration-200"
+                tabIndex={-1}
+                aria-label={showPasswords.old_password ? "Hide password" : "Show password"}
+              >
+                {showPasswords.old_password ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
           </div>
 
           <div>
             <label className="block font-sans text-xs tracking-[0.15em] uppercase text-muted mb-2 mt-4">
               New Password
             </label>
-            <input
-              type="password"
-              name="new_password"
-              value={formData.new_password}
-              onChange={handleChange}
-              placeholder="Enter a secure new password"
-              className="w-full bg-transparent border-b border-border-col focus:border-accent outline-none font-sans text-sm text-fg py-3 transition-colors"
-            />
+            <div className="relative">
+              <input
+                type={showPasswords.new_password ? "text" : "password"}
+                name="new_password"
+                value={formData.new_password}
+                onChange={handleChange}
+                placeholder="Enter a secure new password"
+                className="w-full bg-transparent border-b border-border-col focus:border-accent outline-none font-sans text-sm text-fg py-3 pr-10 transition-colors"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPasswords((prev) => ({ ...prev, new_password: !prev.new_password }))}
+                className="absolute right-0 top-1/2 -translate-y-1/2 text-muted hover:text-fg transition-colors duration-200"
+                tabIndex={-1}
+                aria-label={showPasswords.new_password ? "Hide password" : "Show password"}
+              >
+                {showPasswords.new_password ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
           </div>
 
           <div>
             <label className="block font-sans text-xs tracking-[0.15em] uppercase text-muted mb-2">
               Confirm New Password
             </label>
-            <input
-              type="password"
-              name="confirm_password"
-              value={formData.confirm_password}
-              onChange={handleChange}
-              placeholder="Type your new password again"
-              className="w-full bg-transparent border-b border-border-col focus:border-accent outline-none font-sans text-sm text-fg py-3 transition-colors"
-            />
+            <div className="relative">
+              <input
+                type={showPasswords.confirm_password ? "text" : "password"}
+                name="confirm_password"
+                value={formData.confirm_password}
+                onChange={handleChange}
+                placeholder="Type your new password again"
+                className="w-full bg-transparent border-b border-border-col focus:border-accent outline-none font-sans text-sm text-fg py-3 pr-10 transition-colors"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPasswords((prev) => ({ ...prev, confirm_password: !prev.confirm_password }))}
+                className="absolute right-0 top-1/2 -translate-y-1/2 text-muted hover:text-fg transition-colors duration-200"
+                tabIndex={-1}
+                aria-label={showPasswords.confirm_password ? "Hide password" : "Show password"}
+              >
+                {showPasswords.confirm_password ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
           </div>
 
           <button
